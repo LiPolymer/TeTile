@@ -1,0 +1,160 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="clr-namespace:TeTile.Models"
+        xmlns:husk="https://github.com/d3ara1n/Huskui.Avalonia"
+        xmlns:converters="clr-namespace:TeTile.Converters"
+        mc:Ignorable="d"
+        Height="350"
+        Width="500"
+        Icon="/Assets/TeTile.ico"
+        x:Class="TeTile.Views.SettingsWindow"
+        x:DataType="models:Settings"
+        TransparencyLevelHint="Mica"
+        Title="TeTile 设置">
+    <Window.Styles>
+        <Style Selector="Window">
+            <Setter Property="ExtendClientAreaToDecorationsHint" Value="False" />
+            <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome" />
+            <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1" />
+            <Setter Property="SystemDecorations" Value="Full" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Color="White" Opacity="0"></SolidColorBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Styles>
+    <Window.Resources>
+        <converters:DoubleToPercentConverter x:Key="DoubleToPercentConverter" />
+    </Window.Resources>
+    <StackPanel Orientation="Vertical" Margin="20,10,20,10">
+        <Grid ColumnDefinitions="*,Auto" Margin="10">
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Image Stretch="Uniform" 
+                       Height="50" 
+                       Width="50" 
+                       VerticalAlignment="Center"
+                       Source="/Assets/TeTile.png"/>
+                <TextBlock FontSize="30"
+                           Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           Foreground="{StaticResource ControlForegroundBrush}"
+                           Text="TeTile" />
+            </StackPanel>
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,0,5">
+                <Button Background="Transparent"
+                        Padding="3"
+                        Margin="4,0,4,0"
+                        VerticalAlignment="Center"
+                        Click="DonateButton_Clicked">
+                    <LucideIcon Kind="BadgeDollarSign"
+                                Size="20"
+                                Foreground="{StaticResource ControlSecondaryForegroundBrush}" />
+                </Button>
+                <Button Background="Transparent"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        Click="GitHubButton_Clicked">
+                    <LucideIcon Kind="Github"
+                                Size="20"
+                                Foreground="{StaticResource ControlSecondaryForegroundBrush}" />
+                </Button>
+            </StackPanel>
+        </Grid>
+        <StackPanel>
+            <husk:Card Margin="0,0,0,5">
+                <Grid ColumnDefinitions="*,Auto">
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <LucideIcon Foreground="{StaticResource ControlForegroundBrush}"
+                                    Kind="ScissorsLineDashed"
+                                    Size="20"
+                                    Margin="0,0,10,0" />
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Foreground="{StaticResource ControlForegroundBrush}"
+                                       FontSize="15"
+                                       Text="剔除已上课程" />
+                            <TextBlock Foreground="{StaticResource ControlSecondaryForegroundBrush}"
+                                       FontSize="10"
+                                       Text="只在今日课程展示剩余课程" />
+                        </StackPanel>
+                    </StackPanel>
+                    <ToggleButton Grid.Column="1" Theme="{StaticResource GhostToggleButtonTheme}"
+                                  IsChecked="{Binding IsCoursesCut}"
+                                  HorizontalAlignment="Center">
+                        <LucideIcon Kind="Power" Size="15" />
+                    </ToggleButton>
+                </Grid>
+            </husk:Card>
+            <husk:Card Margin="0,0,0,5">
+                <Grid ColumnDefinitions="*,Auto">
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <LucideIcon Foreground="{StaticResource ControlForegroundBrush}"
+                                    Kind="Blend"
+                                    Size="20"
+                                    Margin="0,0,10,0" />
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Foreground="{StaticResource ControlForegroundBrush}"
+                                       FontSize="15"
+                                       Text="材质覆层透明度" />
+                            <TextBlock Foreground="{StaticResource ControlSecondaryForegroundBrush}"
+                                       FontSize="10"
+                                       Text="修改窗体材质上覆层的透明度" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1"
+                                Orientation="Horizontal">
+                        <husk:Tag Classes="Status"
+                                  Margin="0,0,5,0"
+                                  Content="{Binding MaterialOpacity, Converter={StaticResource DoubleToPercentConverter}}"/>
+                        <TextBlock VerticalAlignment="Center"
+                                   Foreground="{StaticResource ControlForegroundBrush}"
+                                    />
+                        <Slider Width="100"
+                                Maximum="1"
+                                Minimum="0"
+                                LargeChange="0.2"
+                                SmallChange="0.1"
+                                Value="{Binding MaterialOpacity}" />
+                    </StackPanel>
+                </Grid>
+            </husk:Card>
+            <husk:Card Margin="0,0,0,5">
+                <Grid ColumnDefinitions="*,Auto">
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <LucideIcon Foreground="{StaticResource ControlForegroundBrush}"
+                                    Kind="DatabaseZap"
+                                    Size="20"
+                                    Margin="0,0,10,0" />
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Foreground="{StaticResource ControlForegroundBrush}"
+                                       FontSize="15"
+                                       Text="导入课表" />
+                            <TextBlock Foreground="{StaticResource ControlSecondaryForegroundBrush}"
+                                       FontSize="10"
+                                       Text="导入 WakeUp 备份格式" />
+                        </StackPanel>
+                    </StackPanel>
+                    <Button Grid.Column="1"
+                                  Click="ImportButton_Clicked"
+                                  HorizontalAlignment="Center">
+                        <LucideIcon Kind="FileInput" Size="15" />
+                    </Button>
+                </Grid>
+            </husk:Card>
+        </StackPanel>
+        <TextBlock HorizontalAlignment="Center"
+                   Foreground="{StaticResource ControlSecondaryForegroundBrush}"
+                   Text="早期版本, 请勿再分发/分享"/>
+        <TextBlock HorizontalAlignment="Center"
+                   Foreground="{StaticResource ControlSecondaryForegroundBrush}"
+                   Text="Early Access Edition, redistribution is NOT allowed"/>
+        <TextBlock HorizontalAlignment="Center"
+                   Foreground="{StaticResource ControlSecondaryForegroundBrush}"
+                   Text="© 2025 LiPolymer. All rights reserved."/>
+    </StackPanel>
+</Window>

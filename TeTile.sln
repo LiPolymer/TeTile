@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36221.1 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeTile", "TeTile\TeTile.csproj", "{8A8BB209-2B95-444D-82E3-2ADD7432FE73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeTile.WakeUp", "TeTile.WakeUp\TeTile.WakeUp.csproj", "{20937FE8-B3C1-469E-8C27-E5836463570C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeTile.WakeUp.Debugger", "TeTile.WakeUp.Debugger\TeTile.WakeUp.Debugger.csproj", "{10CA74E7-BAE7-47FD-B645-110B28EAC213}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeTile.Island", "TeTile.Island\TeTile.Island.csproj", "{D67C37D6-CF1E-46EA-8D87-FDC78E8F8341}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A8BB209-2B95-444D-82E3-2ADD7432FE73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A8BB209-2B95-444D-82E3-2ADD7432FE73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A8BB209-2B95-444D-82E3-2ADD7432FE73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A8BB209-2B95-444D-82E3-2ADD7432FE73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20937FE8-B3C1-469E-8C27-E5836463570C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20937FE8-B3C1-469E-8C27-E5836463570C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20937FE8-B3C1-469E-8C27-E5836463570C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20937FE8-B3C1-469E-8C27-E5836463570C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10CA74E7-BAE7-47FD-B645-110B28EAC213}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10CA74E7-BAE7-47FD-B645-110B28EAC213}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10CA74E7-BAE7-47FD-B645-110B28EAC213}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10CA74E7-BAE7-47FD-B645-110B28EAC213}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D67C37D6-CF1E-46EA-8D87-FDC78E8F8341}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D67C37D6-CF1E-46EA-8D87-FDC78E8F8341}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D67C37D6-CF1E-46EA-8D87-FDC78E8F8341}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D67C37D6-CF1E-46EA-8D87-FDC78E8F8341}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

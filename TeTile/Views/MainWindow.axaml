@@ -1,0 +1,165 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TeTile.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:husk="https://github.com/d3ara1n/Huskui.Avalonia"
+        xmlns:models="clr-namespace:TeTile.Models"
+        xmlns:converters="clr-namespace:TeTile.Converters"
+        Width="270"
+        Height="250"
+        Position="0,0"
+        x:Class="TeTile.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/TeTile.ico"
+        Title="TeTile"
+        TransparencyLevelHint="AcrylicBlur"
+        Topmost="{Binding Settings.IsTopmost}"
+        ShowInTaskbar="False"
+        Loaded="OnLoaded"
+        Closed="OnClosed"
+        PointerReleased="OnPointerReleased">
+    <Window.Background>
+        <MultiBinding Converter="{StaticResource SolidColorOpacityAdjuster}">
+            <Binding Source="{StaticResource WindowBackgroundBrush}"/>
+            <Binding Path="Settings.MaterialOpacity"/>
+        </MultiBinding>
+    </Window.Background>
+    <Window.Styles>
+        <Style Selector="Window">
+            <Setter Property="ExtendClientAreaToDecorationsHint" Value="True"/>
+            <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome"/>
+            <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1"/>
+            <Setter Property="SystemDecorations" Value="None"/>
+            <Setter Property="CanResize" Value="False"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Color="White" Opacity="0"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!-- Navigation styles -->
+        <Style Selector="ListBox.NavigationList">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+
+        <Style Selector="ListBox.NavigationList ListBoxItem">
+            <Setter Property="Padding" Value="12,8" />
+            <Setter Property="Margin" Value="0,2" />
+            <Setter Property="Background" Value="#107f7f7f"/>
+            <Setter Property="CornerRadius" Value="{StaticResource SmallCornerRadius}" />
+        </Style>
+
+        <Style Selector="ListBox.NavigationList ListBoxItem:selected">
+            <Setter Property="Background" Value="{StaticResource ControlAccentBackgroundBrush}" />
+        </Style>
+
+        <Style Selector="ListBox.NavigationList ListBoxItem:selected /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+    </Window.Styles>
+    <Window.Resources>
+        <converters:TopmostBoolToIconConverter x:Key="TopmostBoolToIconConverter"/>
+        <converters:CourseDataStringToVisibilityConverter x:Key="CourseDataStringToVisibilityConverter"/>
+        <!-- Shared Gallery Item Template -->
+        <DataTemplate x:Key="GalleryItemTemplate" x:DataType="models:CourseItem">
+            <Grid ColumnDefinitions="Auto,*,Auto" Margin="4">
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="{Binding Name}"
+                               Foreground="{StaticResource ControlForegroundBrush}"
+                               FontWeight="{StaticResource ControlStrongFontWeight}" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="40">
+                        <husk:Tag Content="{Binding Location}"
+                                  Classes="Primary" 
+                                  Margin="0,0,5,0"
+                                  IsVisible="{Binding Location, Converter={StaticResource CourseDataStringToVisibilityConverter}}"/>
+                        <husk:Tag Content="{Binding Teacher}"
+                                  Margin="0,0,5,0"
+                                  IsVisible="{Binding Teacher, Converter={StaticResource CourseDataStringToVisibilityConverter}}"/>
+                        <husk:Tag Content="{Binding Credit}"
+                                  Classes="Success"
+                                  IsVisible="{Binding Credit, Converter={StaticResource CourseDataStringToVisibilityConverter}}"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="4"
+                            IsVisible="{Binding StartTime, Converter={StaticResource CourseDataStringToVisibilityConverter}}">
+                    <TextBlock Text="{Binding StartTime}"
+                               FontSize="{StaticResource SmallFontSize}"
+                               Foreground="{StaticResource ControlSecondaryForegroundBrush}"
+                               TextTrimming="CharacterEllipsis" />
+                    <TextBlock Text=" - "
+                               FontSize="{StaticResource SmallFontSize}"
+                               Foreground="{StaticResource ControlSecondaryForegroundBrush}"
+                               TextTrimming="CharacterEllipsis" />
+                    <TextBlock Text="{Binding EndTime}"
+                               FontSize="{StaticResource SmallFontSize}"
+                               Foreground="{StaticResource ControlSecondaryForegroundBrush}"
+                               TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    <Grid Margin="5,0,5,0" RowDefinitions="Auto,Auto,Auto,*,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <LucideIcon Grid.Row="0" Kind="GripHorizontal" 
+                    Size="20"
+                    Foreground="Gray"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" 
+                    PointerPressed="InputElement_OnPointerPressed"
+                    Margin="0,0,0,-10"/>
+        <ContentControl Grid.Row="1" Content="{Binding SelectedCourse}" 
+                        ContentTemplate="{StaticResource GalleryItemTemplate}"/>
+        <StackPanel Margin="3,2,0,4" Grid.Row="2" Orientation="Horizontal">
+            <LucideIcon Kind="CalendarClock" 
+                        Foreground="Gray" 
+                        Size="16"/>
+            <Label VerticalAlignment="Center" 
+                   Margin="3,0,0,0"
+                   Foreground="Gray" 
+                   Content="今日课程" 
+                   FontSize="11"/>
+        </StackPanel>
+        
+        
+        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch">
+            <ListBox ItemsSource="{Binding DisplayedCourseItems}"
+                     SelectedItem="{Binding SelectedCourse}"
+                     Classes="NavigationList"
+                     ItemTemplate="{StaticResource GalleryItemTemplate}" 
+                     IsHitTestVisible="False"/>
+        </ScrollViewer>
+        
+        
+        <Grid Grid.Row="4" ColumnDefinitions="Auto,*">
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Button Foreground="Gray"
+                        Padding="3" Margin="0,3,2,3" 
+                        Background="Transparent"
+                        IsEnabled="{Binding IsSettingsClosed}"
+                        Click="SettingsButton_OnClick">
+                    <LucideIcon Kind="Settings" Size="15"/>
+                </Button>
+                <Button Foreground="Gray"
+                        Padding="3" Margin="0,3,3,3" 
+                        Background="Transparent"
+                        Click="InverseTopmostSelection">
+                    <LucideIcon Kind="{Binding Settings.IsTopmost, Converter={StaticResource TopmostBoolToIconConverter}}" Size="15"/>
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Column="1" FlowDirection="RightToLeft" VerticalAlignment="Center">
+                <Label PointerPressed="BrandLabel_Clicked" Content="TeTile" FontSize="10" Foreground="Gray" VerticalAlignment="Center"/>
+                <Button Foreground="Gray" Padding="3" Background="Transparent" Click="PowerButton_OnClick">
+                    <LucideIcon Kind="CirclePower" Size="15"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

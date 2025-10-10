@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<EnableDynamicLoading>True</EnableDynamicLoading>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ClassIslandPluginSdkVersion>1.6.0.5</ClassIslandPluginSdkVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ClassIsland.PluginSdk" Version="1.7.105.1-dev-v2">
+			<ExcludeAssets>runtime; native</ExcludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="manifest.yml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="README.md">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="icon.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\TeTile.WakeUp\TeTile.WakeUp.csproj" />
+	</ItemGroup>
+</Project>
