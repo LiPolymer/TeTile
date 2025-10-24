@@ -29,10 +29,12 @@ public class CourseSchedule {
     public List<(CourseMeta Course,List<TimeNode> Time,ScheduleItem Schedule)> GetTodayCourses(DateTime? date = null) {
         date ??= DateTime.Now;
         int dayOfWeek = DayOfWeekToInt(date.Value.DayOfWeek);
-        int weekDelta = GetWeekDelta(DateTime.Parse(ScheduleMeta!.StartDate),date.Value); 
+        int weekDelta = GetWeekDelta(DateTime.Parse(ScheduleMeta!.StartDate),date.Value);
+        int weekType = (weekDelta % 2 == 0) ? 2 : 1;
         return ScheduleItems!.Where(si => si.DayOfWeek == dayOfWeek 
                                           && si.StartWeek <= weekDelta 
-                                          && weekDelta <= si.EndWeek)
+                                          && weekDelta <= si.EndWeek
+                                          && (si.Type == 0|si.Type == weekType))
             .Select(si => (CourseTable!.GetCourse(si.CourseId)
                         ,TimeTable!.Nodes!
                             .Where(tn => si.StartNode <= tn.Id

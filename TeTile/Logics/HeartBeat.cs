@@ -56,7 +56,7 @@ public static class HeartBeat {
             }
         }
         selected ??= new CourseItem {
-            Name = mvm.Schedule.GetTodayCourses().Count == 0 ? "今天没有课程 ~" : "今日课程已完成!",
+            Name = mvm.Schedule!.GetTodayCourses().Count == 0 ? "今天没有课程 ~" : "今日课程已完成!",
             Credit = "Enjoy your time ~"
         };
         if (mvm.SelectedCourse?.StartTime != selected.StartTime) {
