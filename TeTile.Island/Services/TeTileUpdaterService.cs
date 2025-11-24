@@ -20,7 +20,7 @@ public class TeTileUpdaterService(IProfileService profileService, IExactTimeServ
             _updatedDate = DateTime.Today;
             new Task(Init).Start();
         };
-        OnInjectCalled += Init;
+        OnInjectCalled += ReInject;
         return myInitTask;
     }
 
@@ -31,6 +31,24 @@ public class TeTileUpdaterService(IProfileService profileService, IExactTimeServ
     public static event Action? OnInjectCalled;
 
     public static bool IsScheduleMissing { get; set; } = true;
+
+    void ReInject() {
+        if (Settings.CourseMap != null) {
+            foreach (Guid cmv in Settings.CourseMap.Values) {
+                profileService.Profile.Subjects.Remove(cmv);
+            }
+        }
+        if (Settings.TimeTableGuid != null) {
+            profileService.Profile.TimeLayouts.Remove(Settings.TimeTableGuid.Value);
+        }
+        if (Settings.ScheduleGuid != null) {
+            profileService.Profile.ClassPlans.Remove(Settings.ScheduleGuid.Value);
+        }
+        Settings.CourseMap = null;
+        Settings.TimeTableGuid = null;
+        Settings.ScheduleGuid = null;
+        Init();
+    }
     
     void Init() {
         // Setup
