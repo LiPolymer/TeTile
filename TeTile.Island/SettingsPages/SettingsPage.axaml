@@ -33,7 +33,7 @@
                         </controls:SettingsExpander.Footer>
                 </controls:SettingsExpander> 
                 <Label HorizontalAlignment="Center" HorizontalContentAlignment="Center">
-                        <ci:NavHyperlink NavTarget="https://github.com/LiPolymer">
+                        <ci:NavHyperlink NavTarget="https://gitlab.com/LiPolymer/TeTile">
                                 Copyright © 2025 LiPolymer. All Rights Reserved.
                         </ci:NavHyperlink>
                 </Label>
